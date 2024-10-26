@@ -50,8 +50,6 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: optimized-binary
-        path: target/release/urbanization_rs  # Ensure this matches your binary name
+        path: target/release/urbanization_rs  
 
-    - name: Generate and Push Logs
-      run: make generate_and_push
       
