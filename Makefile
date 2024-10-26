@@ -8,9 +8,6 @@ rust-version:
 	@rustup --version
 	@clippy-driver --version
 
-format:
-	@cargo fmt --quiet
-
 lint:
 	@cargo clippy --quiet
 

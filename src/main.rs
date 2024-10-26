@@ -16,8 +16,12 @@ fn main() {
     db_operations::load_data(file_path).expect("Failed to load data");
 
     // Example CRUD operations
-    db_operations::create_record(&conn, ("01", "Alabama", "G0100010", 34.0, -86.0, 10000, 200.0, 0.8)).expect("Failed to create record");
-    
+    db_operations::create_record(
+        &conn,
+        ("01", "Alabama", "G0100010", 34.0, -86.0, 10000, 200.0, 0.8),
+    )
+    .expect("Failed to create record");
+
     let data = db_operations::read_data(&conn).expect("Failed to read data");
     for record in data {
         println!("{:?}", record);

@@ -1,9 +1,9 @@
-use rusqlite::{Connection, params};
-use reqwest::blocking::get;
 use csv::ReaderBuilder;
+use reqwest::blocking::get;
+use rusqlite::{params, Connection};
+use std::error::Error;
 use std::fs::{File, OpenOptions};
 use std::io::Write;
-use std::error::Error;
 
 const LOG_FILE: &str = "query_log.md";
 
@@ -33,7 +33,7 @@ pub fn extract(url: &str, file_path: &str) -> Result<(), Box<dyn Error>> {
 /// Loads data from the CSV file into the SQLite database.
 pub fn load_data(file_path: &str) -> Result<(), Box<dyn Error>> {
     let conn = Connection::open("urbanizationDB.db")?;
-    
+
     // Drop the table if it exists and create a new one
     conn.execute("DROP TABLE IF EXISTS urbanizationDB", [])?;
     conn.execute(
@@ -100,10 +100,7 @@ pub fn create_record(
 }
 
 /// Updates a record in the `urbanizationDB` table using `UpdateRecordParams`.
-pub fn update_record(
-    conn: &Connection,
-    params: UpdateRecordParams,
-) -> Result<(), Box<dyn Error>> {
+pub fn update_record(conn: &Connection, params: UpdateRecordParams) -> Result<(), Box<dyn Error>> {
     let query = format!(
         "UPDATE urbanizationDB SET state = '{}', lat_tract = {}, long_tract = {}, population = {}, adj_radiuspop_5 = {}, 
          urbanindex = CASE WHEN state = 'Alabama' THEN {} ELSE urbanindex END WHERE gisjoin = '{}'",
@@ -129,8 +126,14 @@ pub fn update_record(
 
 /// Deletes a record from the `urbanizationDB` table.
 pub fn delete_record(conn: &Connection, gisjoin: &str) -> Result<(), Box<dyn Error>> {
-    conn.execute("DELETE FROM urbanizationDB WHERE gisjoin = ?", params![gisjoin])?;
-    log_query(&format!("DELETE FROM urbanizationDB WHERE gisjoin = '{}';", gisjoin));
+    conn.execute(
+        "DELETE FROM urbanizationDB WHERE gisjoin = ?",
+        params![gisjoin],
+    )?;
+    log_query(&format!(
+        "DELETE FROM urbanizationDB WHERE gisjoin = '{}';",
+        gisjoin
+    ));
     Ok(())
 }
 
@@ -140,8 +143,14 @@ pub fn read_data(conn: &Connection) -> Result<Vec<Record>, Box<dyn Error>> {
     let data = stmt
         .query_map([], |row| {
             Ok((
-                row.get(0)?, row.get(1)?, row.get(2)?, row.get(3)?, row.get(4)?,
-                row.get(5)?, row.get(6)?, row.get(7)?
+                row.get(0)?,
+                row.get(1)?,
+                row.get(2)?,
+                row.get(3)?,
+                row.get(4)?,
+                row.get(5)?,
+                row.get(6)?,
+                row.get(7)?,
             ))
         })?
         .collect::<Result<Vec<_>, _>>()?;
