@@ -57,3 +57,4 @@ jobs:
 
     - name: Generate and Push Logs
       run: make generate_and_push
+      
