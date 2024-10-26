@@ -120,7 +120,6 @@ cargo run -- [extract|load|create|read|update|delete]
 The `Makefile` provides several commands to automate tasks:
 
 - **`make rust-version`**: Displays the versions of Rust utilities installed.
-- **`make format`**: Formats the code with rustfmt.
 - **`make lint`**: Lints the code using Clippy.
 - **`make test`**: Runs all tests.
 - **`make release`**: Builds the project in release mode.
@@ -158,8 +157,6 @@ jobs:
         run: make rust-version
       - name: Build Rust
         run: make release
-      - name: Format Code
-        run: make format
       - name: Lint Code
         run: make lint
       - name: Run Tests
