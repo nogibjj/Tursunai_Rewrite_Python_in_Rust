@@ -167,6 +167,31 @@ jobs:
           name: optimized-binary
           path: target/release/urbanization_rs
 ```
+## Optimized Rust Binary
+The project generates an optimized Rust binary to ensure maximum performance. This binary is *compiled in release mode*, incorporating various compiler optimizations that improve runtime efficiency and reduce file size.
+
+**Building the Optimized Binary**
+The CI/CD pipeline in GitHub Actions automatically builds the optimized binary in release mode. This is done using the following command in the workflow:
+
+```yaml
+- name: Build Rust in Release Mode
+  run: cargo build --release
+``` 
+This command produces the optimized binary, which is stored in the target/release directory.
+
+**Downloading the Optimized Binary**
+Once built, the optimized binary is archived as an artifact and can be downloaded directly from the GitHub Actions workflow run. This artifact is named *optimized-binary* and contains the urbanization_rs binary.
+
+In the workflow, the binary is archived with the following step:
+
+```yaml
+- name: Archive Optimized Binary
+  uses: actions/upload-artifact@v3
+  with:
+    name: optimized-binary
+    path: target/release/urbanization_rs
+```
+This step ensures that every successful build produces an easily downloadable, production-ready binary.
 
 ## Dependencies
 
@@ -176,7 +201,14 @@ The primary dependencies for this project are:
 - **`rusqlite`**: For interfacing with the SQLite database.
 - **`csv`**: For reading and parsing CSV data.
   
-These are managed through `Cargo.toml`.
+These are managed through `Cargo.toml`.  Run `cargo build` to install them during setup.
+
+## Using ChatGPT and GitHub Copilot
+**ChatGPT**
+Throughout this project, I used ChatGPT to troubleshoot issues, find best practices for Rust error handling, and optimize code structure. ChatGPT also assisted in clarifying Rust’s syntax and unique features, helping ensure that the project followed Rust’s idiomatic style.
+
+**GitHub Copilot**
+GitHub Copilot was instrumental in suggesting code snippets, especially for repetitive patterns and common Rust syntax. Copilot provided recommendations on structuring functions, handling errors effectively, and generating efficient Rust code for interacting with the SQLite database. These AI tools helped streamline the coding process and improved productivity.
 
 ## Contributing
 
