@@ -155,19 +155,20 @@ This project allows you to perform CRUD (Create, Read, Update, Delete) operation
   To update information for a specific city, use the update command along with the unique identifier (gisjoin) and the updated details:
     cargo run -- update <gisjoin> <state> <lat_tract> <long_tract> <population> <adj_radiuspop_5> <urbanindex>
 
-  **Example:**
+**Example:**
 
-    ```bash
+```bash
     cargo run -- update "G0100010" "Alabama" 34.1 -86.1 10001 201.0 0.9
-    ```
+```
+
 4. **Delete a Record**
   
   To delete a city record from the database, use the delete command with the unique identifier:
     cargo run -- delete <gisjoin>
-    **Example:**
-    ```bash
-    cargo run -- delete "G0100010"
-    ```
+**Example:**
+```bash
+cargo run -- delete "G0100010"
+```
 
 ## CI/CD Pipeline
 
