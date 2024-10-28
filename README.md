@@ -162,7 +162,7 @@ Based on the runtime data, Rust performs the same database operations significan
 
 | Language | Action             | Elapsed Time (microseconds) | Memory Used       |
 |----------|--------------------|-----------------------------|-------------------|
-| Rust     | Database Ops(avg)  | ~16,000,000                 | ~130 kB           |
+| Rust     | Database Ops(avg)  | ~16,000                     | ~130 kB           |
 | Python   | create_rec         | 4,449                       | 32.02 kB          |
 | Python   | update_rec         | 6,724                       | 32.02 kB          |
 | Python   | delete_rec         | 15,637                      | 15.73 kB          |
