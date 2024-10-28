@@ -126,6 +126,54 @@ The `Makefile` provides several commands to automate tasks:
 - **`make all`**: Runs formatting, linting, testing, and then executes the program.
 - **`make [create|read|update|delete]`**: Performs specific CRUD operations.
 
+## Interacting with CRUD Operations in the CLI
+
+This project allows you to perform CRUD (Create, Read, Update, Delete) operations directly from the command line to manage city information in the SQLite database.
+
+### Usage Examples
+
+  1. **Create a New Record**
+
+    To add a new city record, use the `create` command followed by the necessary details:
+    ```bash
+    cargo run -- create <statefips> <state> <gisjoin> <lat_tract> <long_tract> <population> <adj_radiuspop_5> <urbanindex>
+    ```
+    **Example:**
+    ```bash
+    cargo run -- create "01" "Alabama" "G0100010" 34.0 -86.0 10000 200.0 0.8
+    ```
+  2. **Read All Records**
+    To display all city records stored in the database, use the read command:
+    **Example:**
+      ```bash
+      cargo run -- read
+      ```
+    This command fetches and displays all entries from the database.
+
+  3. **Update an Existing Record**
+
+  To update information for a specific city, use the update command along with the unique identifier (gisjoin) and the updated details:
+
+    ```bash
+    cargo run -- update <gisjoin> <state> <lat_tract> <long_tract> <population> <adj_radiuspop_5> <urbanindex>
+    ```
+    **Example:**
+
+    ```bash
+    cargo run -- update "G0100010" "Alabama" 34.1 -86.1 10001 201.0 0.9
+    ```
+  4. **Delete a Record**
+
+    To delete a city record from the database, use the delete command with the unique identifier:
+
+    ```bash
+    cargo run -- delete <gisjoin>
+    ```
+    **Example:**
+    ```bash
+    cargo run -- delete "G0100010"
+    ```
+
 ## CI/CD Pipeline
 
 This project uses GitHub Actions for continuous integration. The pipeline configuration (`cicd.yaml`) includes:
