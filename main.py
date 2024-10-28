@@ -138,7 +138,6 @@ def main():
         file.write(f"Elapsed time: {elapsed_time:.2f} microseconds\n")
         file.write(f"Memory used: {memory_used_kb:.2f} kB\n")
         file.write("\n" + "-" * 40 + "\n\n")  # Divider for readability
-    print(f"Execution time and memory usage recorded in python_time.md")
 
 
 if __name__ == "__main__":
