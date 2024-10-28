@@ -138,14 +138,39 @@ Delete a Record:
 ```bash
 cargo run -- delete "G0100010"
 ```
-## Performance Comparison
-This project includes a detailed comparison of execution time and memory usage between the Python and Rust implementations. The results demonstrate significant performance gains in the Rust version, particularly in terms of speed and reduced memory footprint.
+## Speed and Resource Usage
 
-## Summary of Improvements
-Execution Speed: The Rust implementation is faster for data-intensive tasks.
-Memory Usage: Rust’s optimized memory handling offers a lower memory footprint.
-Resource Efficiency: The CI/CD pipeline validates that Rust is more efficient, especially under high loads.
-For more details, please see performance_report.md.
+- [Rust Runtime Logs](rust_time.md)
+- [Python Runtime Logs](python_time.md)
+
+This project includes a performance comparison between Rust and Python for database operations. Below is a summary of the findings based on runtime logs:
+
+### Performance Analysis
+
+Based on the runtime data, Rust performs the same database operations significantly faster and with less memory usage compared to Python. Here are some key points of the performance comparison:
+
+- **Execution Speed**:
+  - **Rust**: Operations completed in approximately 16-17 seconds on average for comprehensive database tasks.
+  - **Python**: Individual actions such as `create_rec`, `update_rec`, and `delete_rec` are quicker in isolation but become slower with complex operations like `read_data` (which took approximately 1.4 seconds).
+  - Overall, Rust's static typing, zero-cost abstractions, and efficient memory handling allow it to perform complex tasks more efficiently across the board.
+
+- **Memory Usage**:
+  - **Rust**: Consumes minimal memory, averaging around 130 kB or less, with some fluctuations observed due to direct memory management.
+  - **Python**: Memory usage is significantly higher, particularly in data-heavy operations like `read_data`, which consumed over 39 MB of memory.
+
+### Detailed Comparison
+
+| Language | Action             | Elapsed Time (microseconds) | Memory Used       |
+|----------|--------------------|-----------------------------|-------------------|
+| Rust     | Database Ops(avg)  | ~16,000,000                 | ~130 kB           |
+| Python   | create_rec         | 4,449                       | 32.02 kB          |
+| Python   | update_rec         | 6,724                       | 32.02 kB          |
+| Python   | delete_rec         | 15,637                      | 15.73 kB          |
+| Python   | read_data          | 1,395,103                   | 39,307.19 kB      |
+| Python   | general_query      | 6,409                       | 16.80 kB          |
+
+
+This comparison demonstrates Rust’s suitability for performance-critical applications, where both speed and memory efficiency are crucial.
 
 ## CI/CD Pipeline
 The CI/CD pipeline, configured in .github/workflows/ci_cd.yml, includes the following steps:
