@@ -2,6 +2,8 @@
 
 # Urbanization Data CLI Tool
 ### By Tursunai Turumbekova
+[Link To Demo Video](https://youtu.be/5NmfvoShtM0)
+
 This Rust-based command-line tool extracts, transforms, and loads urbanization data into an SQLite database, allowing for CRUD (Create, Read, Update, Delete) operations. The project is set up with continuous integration and a structured `Makefile` for ease of use, with support for GitHub Actions CI/CD workflows. 
 
 ## Table of Contents
