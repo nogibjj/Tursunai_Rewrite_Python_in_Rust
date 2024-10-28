@@ -134,26 +134,30 @@ This project allows you to perform CRUD (Create, Read, Update, Delete) operation
 
 1. **Create a New Record**
 
-    To add a new city record, use the `create` command followed by the necessary details:
-    cargo run -- create <statefips> <state> <gisjoin> <lat_tract> <long_tract> <population> <adj_radiuspop_5> <urbanindex>
-    **Example:**
-    ```bash
-    cargo run -- create "01" "Alabama" "G0100010" 34.0 -86.0 10000 200.0 0.8
-    ```
+  To add a new city record, use the `create` command followed by the necessary details:
+  
+  cargo run -- create <statefips> <state> <gisjoin> <lat_tract> <long_tract> <population> <adj_radiuspop_5> <urbanindex>
+
+**Example:**
+```bash
+cargo run -- create "01" "Alabama" "G0100010" 34.0 -86.0 10000 200.0 0.8
+```
+
 2. **Read All Records**
   
   To display all city records stored in the database, use the read command:
-  **Example:**
-  ```bash
-  cargo run -- read
-  ```
-  
+
+**Example:**
+```bash
+cargo run -- read
+```
   This command fetches and displays all entries from the database.
 
 3. **Update an Existing Record**
 
   To update information for a specific city, use the update command along with the unique identifier (gisjoin) and the updated details:
-    cargo run -- update <gisjoin> <state> <lat_tract> <long_tract> <population> <adj_radiuspop_5> <urbanindex>
+  
+  cargo run -- update <gisjoin> <state> <lat_tract> <long_tract> <population> <adj_radiuspop_5> <urbanindex>
 
 **Example:**
 
