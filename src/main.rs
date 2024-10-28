@@ -1,8 +1,14 @@
 mod db_operations;
 
 use rusqlite::Connection;
+use std::fs::File;
+use std::io::Write;
+use std::time::Instant;
 
 fn main() {
+    // Start timing
+    let start = Instant::now();
+
     let file_path = "data/urbanization.csv";
     let conn = Connection::open("urbanizationDB.db").expect("Failed to open database.");
 
@@ -41,4 +47,11 @@ fn main() {
 
     // Delete a record
     db_operations::delete_record(&conn, "G0100010").expect("Failed to delete record");
+
+    // End timing
+    let duration = start.elapsed();
+
+    // Write execution time to file
+    let mut file = File::create("rust_time.md").expect("Unable to create file");
+    write!(file, "Execution time: {:?}", duration).expect("Unable to write data");
 }

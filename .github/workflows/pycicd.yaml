@@ -1,0 +1,31 @@
+name: CI
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: [3.7, 3.8, 3.9]
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v2
+        with:
+          python-version: ${{ matrix.python-version }}
+      - name: install packages
+        run: make python_install
+      - name: lint
+        run: make python_lint
+      - name: test
+        run: make python_test
+      - name: format
+        run: make python_format
+      - name: deploy
+        run: make python_deploy
+        
