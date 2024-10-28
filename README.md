@@ -143,7 +143,8 @@ This project allows you to perform CRUD (Create, Read, Update, Delete) operation
     cargo run -- create "01" "Alabama" "G0100010" 34.0 -86.0 10000 200.0 0.8
     ```
   2. **Read All Records**
-    To display all city records stored in the database, use the read command:
+  
+  To display all city records stored in the database, use the read command:
     **Example:**
       ```bash
       cargo run -- read
@@ -163,8 +164,8 @@ This project allows you to perform CRUD (Create, Read, Update, Delete) operation
     cargo run -- update "G0100010" "Alabama" 34.1 -86.1 10001 201.0 0.9
     ```
   4. **Delete a Record**
-
-    To delete a city record from the database, use the delete command with the unique identifier:
+  
+  To delete a city record from the database, use the delete command with the unique identifier:
 
     ```bash
     cargo run -- delete <gisjoin>
