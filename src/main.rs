@@ -1,13 +1,21 @@
 mod db_operations;
 
 use rusqlite::Connection;
-use std::fs::File;
+use std::fs::OpenOptions;
 use std::io::Write;
 use std::time::Instant;
+use sysinfo::{System, SystemExt};  // For memory usage tracking
+use chrono::Local;  // For timestamp
 
 fn main() {
+    // Start memory tracking
+    let mut sys = System::new_all();
+    sys.refresh_memory();
+    let initial_memory = sys.used_memory();
+
     // Start timing
     let start = Instant::now();
+    let timestamp = Local::now();
 
     let file_path = "data/urbanization.csv";
     let conn = Connection::open("urbanizationDB.db").expect("Failed to open database.");
@@ -51,7 +59,26 @@ fn main() {
     // End timing
     let duration = start.elapsed();
 
-    // Write execution time to file
-    let mut file = File::create("rust_time.md").expect("Unable to create file");
-    write!(file, "Execution time: {:?}", duration).expect("Unable to write data");
+    // Track memory after operations
+    sys.refresh_memory();
+    let final_memory = sys.used_memory();
+    let memory_used_kb = (final_memory as i64 - initial_memory as i64) as f64 / 1024.0;
+
+    // Prepare log entry with formatted details
+    let log_entry = format!(
+        "Timestamp: {}\nAction: Database Operations\nElapsed time: {:.2} microseconds\nMemory used: {:.2} kB\n\n----------------------------------------\n\n",
+        timestamp.format("%Y-%m-%d %H:%M:%S"),
+        duration.as_micros(),
+        memory_used_kb
+    );
+
+    // Append to rust_time.md
+    let mut file = OpenOptions::new()
+        .append(true)
+        .create(true)
+        .open("rust_time.md")
+        .expect("Unable to open or create file");
+    file.write_all(log_entry.as_bytes()).expect("Unable to write data");
+
+    println!("Execution time and memory usage recorded in rust_time.md");
 }
